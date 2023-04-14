@@ -30,7 +30,6 @@ public class pickUpObjects : MonoBehaviour
         if(grabHand.activeSelf && Input.GetButtonDown("Fire1"))
         {
             canChangeDay = true;
-            Debug.Log("Interacting");
         }
     }
 }

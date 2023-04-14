@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class nextDay : MonoBehaviour
 {
-    pickUpObjects PickUpObjects;
-    public int dayChange = 1;
+    public pickUpObjects PickUpObjects;
+    private int dayChange = 1;
 
     void Update()
     {
         if(PickUpObjects.canChangeDay == true)
         {
-            Debug.Log("NewDay");
+            SceneManager.LoadScene(dayChange);
+            PickUpObjects.canChangeDay = false;
+            dayChange += 1;
         }
     }
 }
