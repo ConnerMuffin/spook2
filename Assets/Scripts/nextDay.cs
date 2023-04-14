@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class nextDay : MonoBehaviour
 {
-    // Update is called once per frame
-    public void newDay(int dayChange)
+    pickUpObjects PickUpObjects;
+    public int dayChange = 1;
+
+    void Update()
     {
-        SceneManager.LoadScene (dayChange);
+        if(PickUpObjects.canChangeDay == true)
+        {
+            Debug.Log("NewDay");
+        }
     }
 }

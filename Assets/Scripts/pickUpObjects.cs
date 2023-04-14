@@ -9,6 +9,7 @@ public class pickUpObjects : MonoBehaviour
 	public GameObject grabHand;
 	public GameObject defaultCrossHair;
 	public LayerMask inter;
+    public bool canChangeDay;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,11 @@ public class pickUpObjects : MonoBehaviour
         else
         {
         	grabHand.SetActive(false);
+        }
+        if(grabHand.activeSelf && Input.GetButtonDown("Fire1"))
+        {
+            canChangeDay = true;
+            Debug.Log("Interacting");
         }
     }
 }
