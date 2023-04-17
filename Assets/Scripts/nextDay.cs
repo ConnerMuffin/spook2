@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class nextDay : MonoBehaviour
 {
     public pickUpObjects PickUpObjects;
-    private int dayChange = 1;
+    static int dayChange = 2;
 
     void Update()
     {
