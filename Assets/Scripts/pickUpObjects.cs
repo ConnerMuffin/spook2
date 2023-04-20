@@ -7,19 +7,16 @@ public class pickUpObjects : MonoBehaviour
 	public Transform playerView;
 	RaycastHit hit;
 	public GameObject grabHand;
+	public GameObject sleepTime;
 	public GameObject defaultCrossHair;
 	public LayerMask inter;
-    public bool canChangeDay;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+	public LayerMask bed;
+    	public bool canChangeDay;
+    
     // Update is called once per frame
     void Update()
     {
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 1.5f, inter))	//after 500f put comma and add layer mask
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, inter))
         {
         	grabHand.SetActive(true);	      	
         }
@@ -27,8 +24,19 @@ public class pickUpObjects : MonoBehaviour
         {
         	grabHand.SetActive(false);
         }
-        if(grabHand.activeSelf && Input.GetButtonDown("Fire1"))
+        
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, bed))
         {
+        	sleepTime.SetActive(true);	      	
+        }
+        else
+        {
+        	sleepTime.SetActive(false);
+        }
+        
+        if(sleepTime.activeSelf && Input.GetButtonDown("Fire1"))
+        {
+        	Debug.Log("HEe");
             canChangeDay = true;
         }
     }
