@@ -36,7 +36,6 @@ public class pickUpObjects : MonoBehaviour
         
         if(sleepTime.activeSelf && Input.GetButtonDown("Fire1"))
         {
-        	Debug.Log("HEe");
             canChangeDay = true;
         }
     }
