@@ -24,7 +24,10 @@ public class pickUpObjects : MonoBehaviour
         {
         	grabHand.SetActive(false);
         }
-        
+        if(grabHand.activeSelf && Input.GetButtonDown("Interact"))
+        {
+        	hit.transform.SetParent(transform);
+        }
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, bed))
         {
         	sleepTime.SetActive(true);	      	
@@ -34,9 +37,10 @@ public class pickUpObjects : MonoBehaviour
         	sleepTime.SetActive(false);
         }
         
-        if(sleepTime.activeSelf && Input.GetButtonDown("Fire1"))
+        if(sleepTime.activeSelf && Input.GetButtonDown("Interact"))
         {
-            canChangeDay = true;
+        	canChangeDay = true;
         }
+
     }
 }
