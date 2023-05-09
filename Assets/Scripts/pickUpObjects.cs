@@ -11,11 +11,22 @@ public class pickUpObjects : MonoBehaviour
 	public GameObject defaultCrossHair;
 	public LayerMask inter;
 	public LayerMask bed;
-    	public bool canChangeDay;
+    public Transform pickUpSlot;
+    public bool holdingItem;
+    private Transform heldItem;
+    public bool canChangeDay;
     
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Drop"))
+        {
+            heldItem.GetComponent<Rigidbody>().isKinematic = false;
+            heldItem.GetComponent<Rigidbody>().useGravity = true;
+            heldItem.parent = null;
+            heldItem = null;
+            holdingItem = false;
+        }
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, inter))
         {
         	grabHand.SetActive(true);	      	
@@ -24,9 +35,15 @@ public class pickUpObjects : MonoBehaviour
         {
         	grabHand.SetActive(false);
         }
-        if(grabHand.activeSelf && Input.GetButtonDown("Interact"))
+        if(grabHand.activeSelf && Input.GetButtonDown("Interact") && !holdingItem)
         {
-        	hit.transform.SetParent(transform);
+            heldItem = hit.collider.transform;
+        	heldItem.transform.SetParent(pickUpSlot);
+            heldItem.transform.position = pickUpSlot.transform.position;
+            heldItem.transform.rotation = pickUpSlot.transform.rotation;
+            heldItem.GetComponent<Rigidbody>().isKinematic = true;
+            heldItem.GetComponent<Rigidbody>().useGravity = false;
+            holdingItem = true;
         }
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, bed))
         {
