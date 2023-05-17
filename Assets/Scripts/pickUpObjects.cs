@@ -13,7 +13,7 @@ public class pickUpObjects : MonoBehaviour
 	public LayerMask bed;
     public Transform pickUpSlot;
     public bool holdingItem;
-    private Transform heldItem;
+    public Transform heldItem;
     public bool canChangeDay;
     
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class pickUpObjects : MonoBehaviour
             heldItem = null;
             holdingItem = false;
         }
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, inter))
+    if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, inter) && !holdingItem)
         {
         	grabHand.SetActive(true);	      	
         }
