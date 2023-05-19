@@ -15,10 +15,20 @@ public class pickUpObjects : MonoBehaviour
     public bool holdingItem;
     public Transform heldItem;
     public bool canChangeDay;
-    
+    public GameObject howToGrabText;
+    private bool hasntPicked = true;
+
+    void start()
+    {
+        hasntPicked = true;
+    }
     // Update is called once per frame
     void Update()
     {
+        if(holdingItem)
+        {
+            howToGrabText.SetActive(false);
+        }
         if (Input.GetButtonDown("Drop"))
         {
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
@@ -29,7 +39,11 @@ public class pickUpObjects : MonoBehaviour
         }
     if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, inter) && !holdingItem)
         {
-        	grabHand.SetActive(true);	      	
+        	grabHand.SetActive(true);
+            if(hasntPicked)
+            {
+                howToGrabText.SetActive(true);
+            }      	
         }
         else
         {
