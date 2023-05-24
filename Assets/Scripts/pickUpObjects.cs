@@ -17,33 +17,35 @@ public class pickUpObjects : MonoBehaviour
     public bool canChangeDay;
     public GameObject howToGrabText;
     private bool hasntPicked = true;
+    public float dropForce;
 
-    void start()
-    {
-        hasntPicked = true;
-    }
+
     // Update is called once per frame
     void Update()
     {
         if(holdingItem)
         {
             howToGrabText.SetActive(false);
+            hasntPicked = false;
         }
+    //Drop item
         if (Input.GetButtonDown("Drop"))
         {
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             heldItem.GetComponent<Rigidbody>().useGravity = true;
             heldItem.parent = null;
+            heldItem.gameObject.GetComponent<Rigidbody>().AddForce(playerView.forward * dropForce);
             heldItem = null;
             holdingItem = false;
         }
+    //Picking up Item
     if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, inter) && !holdingItem)
         {
         	grabHand.SetActive(true);
             if(hasntPicked)
             {
                 howToGrabText.SetActive(true);
-            }      	
+            }    	
         }
         else
         {
@@ -59,6 +61,7 @@ public class pickUpObjects : MonoBehaviour
             heldItem.GetComponent<Rigidbody>().useGravity = false;
             holdingItem = true;
         }
+    //Bed code
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, bed))
         {
         	sleepTime.SetActive(true);	      	
