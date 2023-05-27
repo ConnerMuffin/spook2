@@ -15,20 +15,20 @@ public class venting : MonoBehaviour
     bool unScrewed = false;
     bool holdingScrewdriver;
     public pickUpObjects PickUpObjects;
-    public GameObject screwdriver;
+    public Transform screwdriver;
     public LayerMask ventCover;
     
     // Update is called once per frame
     void Update()
     {
         
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, vent) && into && Input.GetButtonDown("Interact"))
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, vent) && into && Input.GetButtonDown("Interact") && unScrewed)
         {
             Debug.Log("vented in");
             transform.position = teleLocIn.position;
             into = false;
         }
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, vent) && !into && Input.GetButtonDown("Interact"))
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, vent) && !into && Input.GetButtonDown("Interact") && unScrewed)
         {
             Debug.Log("vented out");
             transform.position = teleLocOut.position;
@@ -42,9 +42,10 @@ public class venting : MonoBehaviour
         {
             ventHand.SetActive(false);
         }
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && !unScrewed && Input.GetButtonDown("Interact") && holdingScrewdriver)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && Input.GetButtonDown("Interact") && holdingScrewdriver)
         {
             hit.collider.gameObject.SetActive(false);
+            unScrewed = true;
         }
         //Check if holding screwdriver
         if(PickUpObjects.heldItem == screwdriver)
@@ -56,7 +57,7 @@ public class venting : MonoBehaviour
             holdingScrewdriver = false;
         }
         //Turn Unscrew text on when look at unscrewed vent
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && !unScrewed)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && !unScrewed && holdingScrewdriver)
         {
             unScrewHand.SetActive(true);
         }
