@@ -1,0 +1,13 @@
+# Blender MTL File: 'low-poly medieval table set.blend'
+# Material Count: 1
+
+newmtl chair_MAT
+Ns 35.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.009017 0.002541 0.000831
+Ni 1.330000
+d 1.000000
+illum 1
+map_Kd E:\\Blender PROJECTS\\Low-Poly\\textures\\ChairTexture.png

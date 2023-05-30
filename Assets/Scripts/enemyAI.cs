@@ -9,7 +9,7 @@ public class enemyAI : MonoBehaviour
     public NavMeshAgent agent;
 
     public Transform player;
-    public Transform gabe;
+    public Transform toes;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -18,10 +18,6 @@ public class enemyAI : MonoBehaviour
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
-
-    //Attacking
-    public float timeBetweenAttacks;
-    public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
@@ -56,9 +52,10 @@ public class enemyAI : MonoBehaviour
                 }
             }
         }
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
+
         if (playerInSightRange && !playerInAttackRange && canSeePlayer) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange && canSeePlayer) AttackPlayer();
+        else if (playerInAttackRange && playerInSightRange && canSeePlayer) AttackPlayer();
+        else Invoke(nameof(Patroling), 5);
     }
     private void Patroling()
     {
@@ -75,7 +72,7 @@ public class enemyAI : MonoBehaviour
     }
     private void SearchWalkPoint()
     {
-        //Calculate random pointin range
+        //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -87,11 +84,12 @@ public class enemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
-        transform.LookAt(player);
+        transform.LookAt(toes);
     }
     private void AttackPlayer()
     {
         SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     //Visualize Attack + Sight Range

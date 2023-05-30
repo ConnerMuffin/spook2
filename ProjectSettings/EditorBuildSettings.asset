@@ -12,24 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/testHouse.unity
     guid: 8fc42c380db136f4cb4421d2402f6818
   - enabled: 1
-    path: Assets/Scenes/testHouse 1.unity
-    guid: dee05cc4aeb2964928c770d886b17e35
-  - enabled: 1
-    path: Assets/Scenes/testHouse 2.unity
-    guid: e6f0073097a67765c8f4f4e1066e76d5
-  - enabled: 1
-    path: Assets/Scenes/testHouse 3.unity
-    guid: fa0e5413b0d1c0172b0043dbd56a7e20
-  - enabled: 1
-    path: Assets/Scenes/testHouse 4.unity
-    guid: 084d2eae80f9ea89689164d20cea2d94
-  - enabled: 1
-    path: Assets/Scenes/Test.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Intro.unity
+    guid: 8b8636c31bebce742b6d6b2582cb7d15
   - enabled: 1
     path: Assets/Scenes/Spook.unity
     guid: e7c3491b34d9104458037875cbc305de
   - enabled: 1
     path: Assets/Scenes/endGame.unity
     guid: 6f0fdc55085308cfa8c34229eede4556
+  - enabled: 1
+    path: Assets/Scenes/Test.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

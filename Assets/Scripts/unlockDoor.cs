@@ -16,6 +16,9 @@ public class unlockDoor : MonoBehaviour
     public GameObject breakHand;
     bool holdingHammer;
     public LayerMask breakable;
+    public GameObject howUnlock;
+    public GameObject howBreak;
+    public GameObject leaveTrigger;
 
 
     // Update is called once per frame
@@ -30,7 +33,7 @@ public class unlockDoor : MonoBehaviour
         {
             holdingKey = false;
         }
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, door) && holdingKey)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, door))
         {
         	unlockHand.SetActive(true);	      	
         }
@@ -38,12 +41,18 @@ public class unlockDoor : MonoBehaviour
         {
         	unlockHand.SetActive(false);
         }
-        if(unlockHand.activeSelf && Input.GetButtonDown("Interact") && holdingKey)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, door) && Input.GetButtonDown("Interact") && holdingKey)
         {
             hit.collider.gameObject.SetActive(false);
+            leaveTrigger.SetActive(true);
         }
-    //Hammer Break Code
-        if(PickUpObjects.heldItem == hammer)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, door) && Input.GetButtonDown("Interact") && !holdingKey)
+        {
+            howUnlock.SetActive(true);
+            Invoke(nameof(fade), 3);
+        }
+        //Hammer Break Code
+        if (PickUpObjects.heldItem == hammer)
         {
             holdingHammer = true;
         }
@@ -51,7 +60,7 @@ public class unlockDoor : MonoBehaviour
         {
             holdingHammer = false;
         }
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, breakable) && holdingHammer)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, breakable))
         {
         	breakHand.SetActive(true);	      	
         }
@@ -59,9 +68,22 @@ public class unlockDoor : MonoBehaviour
         {
         	breakHand.SetActive(false);
         }
-        if(breakHand.activeSelf && Input.GetButtonDown("Interact") && holdingHammer)
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, breakable) && Input.GetButtonDown("Interact") && holdingHammer)
         {
             hit.collider.gameObject.SetActive(false);
         }
+        if (Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, breakable) && Input.GetButtonDown("Interact") && !holdingHammer)
+        {
+            howBreak.SetActive(true);
+            Invoke(nameof(fade2), 3);
+        }
+    }
+    private void fade()
+    {
+        howUnlock.SetActive(false);
+    }
+    private void fade2()
+    {
+        howBreak.SetActive(false);
     }
 }

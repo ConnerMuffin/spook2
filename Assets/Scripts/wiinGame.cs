@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class wiinGame : MonoBehaviour
 {
-    static int endGame = 8;
+    static int endGame = 4;
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
     if (hit.collider.gameObject.layer == LayerMask.NameToLayer("endGame"))

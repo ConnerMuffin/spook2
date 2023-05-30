@@ -17,11 +17,12 @@ public class venting : MonoBehaviour
     public pickUpObjects PickUpObjects;
     public Transform screwdriver;
     public LayerMask ventCover;
+    public GameObject howUnscrew;
     
     // Update is called once per frame
     void Update()
     {
-        
+        //Venting
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, vent) && into && Input.GetButtonDown("Interact") && unScrewed)
         {
             Debug.Log("vented in");
@@ -34,6 +35,7 @@ public class venting : MonoBehaviour
             transform.position = teleLocOut.position;
             into = true;
         }
+        //VentHand when unscrewed
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, vent) && unScrewed)
         {
             ventHand.SetActive(true);
@@ -42,13 +44,19 @@ public class venting : MonoBehaviour
         {
             ventHand.SetActive(false);
         }
+        //Unscrew
         if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && Input.GetButtonDown("Interact") && holdingScrewdriver)
         {
             hit.collider.gameObject.SetActive(false);
             unScrewed = true;
         }
+        if (Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && Input.GetButtonDown("Interact") && !holdingScrewdriver)
+        {
+            howUnscrew.SetActive(true);
+            Invoke(nameof(fade), 3);
+        }
         //Check if holding screwdriver
-        if(PickUpObjects.heldItem == screwdriver)
+        if (PickUpObjects.heldItem == screwdriver)
         {
             holdingScrewdriver = true;
         }
@@ -56,8 +64,8 @@ public class venting : MonoBehaviour
         {
             holdingScrewdriver = false;
         }
-        //Turn Unscrew text on when look at unscrewed vent
-        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && !unScrewed && holdingScrewdriver)
+        //Turn Unscrew text on when look at screwed vent
+        if(Physics.Raycast(playerView.position, playerView.forward, out hit, 2.1f, ventCover) && !unScrewed)
         {
             unScrewHand.SetActive(true);
         }
@@ -65,5 +73,9 @@ public class venting : MonoBehaviour
         {
             unScrewHand.SetActive(false);
         }
+    }
+    private void fade()
+    {
+        howUnscrew.SetActive(false);
     }
 }
